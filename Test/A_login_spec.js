@@ -1,4 +1,4 @@
-describe("AuthorPortal Testing",function(){
+
 
  
 
@@ -6,9 +6,14 @@ describe("AuthorPortal Testing",function(){
  	describe("Testing Login Module",function(){
  		beforeEach(function() {
  	//browser.get("http://authorportal.packtpub.com/login");
- 	browser.get("https://authorportal-qa.packtpub.com");
+
+ 	browser.get(browser.params.baseURL);
  	browser.driver.manage().window().maximize();
  });
+
+ 		/*afterALL(function(){
+ 			browser.restart();
+ 		});*/
 
  		
 
@@ -19,6 +24,9 @@ describe("AuthorPortal Testing",function(){
  	var loginUserName="authort";
  	var loginPassword="pass+123+456";	
  	var EC=protractor.ExpectedConditions;
+
+
+ 	
 
 
  	it("Login Passed test", function() {
@@ -103,4 +111,3 @@ describe("AuthorPortal Testing",function(){
  	});
 });
 
-});

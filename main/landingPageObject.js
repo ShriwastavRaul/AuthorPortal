@@ -1,49 +1,89 @@
 var landingPage=function(){
 
 
-	this.welComeMessage=element(by.cssContainingText('.ng-star-inserted','Welcome To Your Author Portal'));
-	this.newAlerts=element(by.className('.alert beacon-bg'));
-	 this.authorName=element(by.cssContainingText('ng-star-inserted','Test Author'));
+	this.welComeMessage=element(by.xpath("//item-box[@title='Welcome To Your Author Portal']//span[@class='ng-star-inserted']"));
+	this.newAlerts=element(by.className('alert beacon-bg'));
+	 //this.authorName=element(by.cssContainingText('ng-star-inserted','Test Author'));
+	this.authorName=element(by.xpath("(//div[@class='itembox-heading']//span[@class='ng-star-inserted'])[1]"));
 	this.detailsInHomePage=element(by.css('body > app-root > div > app-home > div > div.col-sm-10.main-area > div > ng-component > div > div.col-md-9.col-sm-6 > item-box > div > div.itembox-body'));
-	this.listOfOtherModules=element.all(by.css('ul.nav nav-pills nav-stacked li'));
+    var listOfOtherModules=element.all(by.xpath("//ul[@class='nav nav-pills nav-stacked']/li/a"));
 	this.editProfileLinkBelowPhoto=element(by.xpath("(//*[@routerlink='/contact-details'])[1]"));
+
+	var logoutBtn=element(by.className('fa fa-sign-out'));
 
 	var EC=protractor.ExpectedConditions;
 
-	this.nameAbovePhoto=function(){
+	this.nameAbovePhoto=function(){			
 
-
-		browser.wait(EC.visibilityOf(this.authorName));
-
-
-
-
-		var userName = this.authorName.getText();
-		return userName;
-
-
+		browser.wait(EC.visibilityOf(this.editProfileLinkBelowPhoto),90000);
+		return this.authorName.getText();
 	};
 
-	this.editProfileLink=function(){
-		this.editProfileLink.click();
+	this.editProfileClick=function(){
+		browser.wait(EC.visibilityOf(this.editProfileLinkBelowPhoto),30000);
+		return this.editProfileLinkBelowPhoto.isEnabled();
 		
 	};
 
 	this.newAlertAvailability=function(){
-		var tag=this.newAlerts.isDisplayed();
-		return tag;
-
+		//browser.wait(EC.visibilityOf(this.newAlerts),30000);
+		return this.newAlerts.isDisplayed();
 	};
 
-	this.newAlertAvailability=function(){
-		var welcomeMessage=this.welComeMessage.getText();
-		return welcomeMessage;
-
+	this.welcomeMessageCheck=function(){
+		browser.wait(EC.visibilityOf(this.welComeMessage),30000);
+		return this.welComeMessage.getText();
+		
 	};
 
 	this.otherDetailsVisibleCheck=function(){
-		var tag=this.detailsInHomePage.isDisplayed();
-		return tag;
+		browser.wait(EC.visibilityOf(this.detailsInHomePage),30000);
+		return this.detailsInHomePage.isDisplayed();
+		
+
+	};
+
+
+	this.checkLeftPane=function(){
+		return listOfOtherModules;
+
+	};
+
+	this.checkLeftPaneClickabilityFirst=function(){
+
+		
+		try {
+
+			browser.wait(EC.elementToBeClickable(listOfOtherModules.get(1)),5000);
+			return true;
+
+		}
+		catch(e){
+			return false;
+
+		}
+
+	};
+
+	this.checkLeftPaneClickabilitySecond=function(){
+
+		
+		try {
+
+			browser.wait(EC.elementToBeClickable(listOfOtherModules.get(2)),5000);
+			return true;
+
+		}
+		catch(e)
+		{
+			return false;
+
+		}
+
+	};
+
+	this.getLoggedOut=function(){
+		logoutBtn.click();
 
 	};
 

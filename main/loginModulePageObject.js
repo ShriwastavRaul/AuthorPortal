@@ -101,6 +101,24 @@ var loginPage=function(){
 
 	};
 
+	this.clickabilityCheck=function(element){
+		try {
+
+			
+
+			browser.wait(EC.elementToBeClickable(element),5000);
+			console.log('entered clickable true section');
+			return true;
+
+		}
+		catch(e){
+			console.log('entered clickable false section');
+			return false;
+
+		}
+
+	};
+
 
 
 
